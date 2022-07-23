@@ -1,0 +1,48 @@
+body {
+    background-color: lightgray;
+}
+
+#header {
+    font-size: 50px;
+    font-weight: bold;
+    text-align: center;
+}
+
+#canvas {
+    height: 500px;
+    width: 500px;
+    background-color: white;
+    border: 2px solid black;    
+    display: flex;
+    flex-wrap: wrap;
+    flex-shrink: 1;
+}
+
+.boxes {
+    box-sizing: border-box;
+    display: flex;
+    flex-shrink: 1;
+}
+
+.container {
+    display: flex;
+    flex-direction: row-reverse;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap:50px;
+}
+
+.panel {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap:20px;
+}
+
+.slider {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
