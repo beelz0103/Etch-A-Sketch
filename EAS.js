@@ -1,5 +1,6 @@
 const canvas = document.querySelector('#canvas');
 let brushColor = "#000000";
+let manualCounter = 0;
 createCanvas(16); 
 
 function createCanvas(gridSize) {
@@ -21,7 +22,6 @@ function changeGrid() {
     createCanvas(slider);
 }
 
-
 function getColor(color) {
 
     if (color == "#000000") {
@@ -42,11 +42,11 @@ function getColor(color) {
         })
     }
 
-    else if (color == "Manual") {
+    else if (manualCounter == 1) {
         let boxes = document.querySelectorAll(".boxes");
         boxes.forEach((box)=>{
             box.addEventListener("mouseover", ()=>{
-                box.style.backgroundColor = `${colorMan}`;
+                box.style.backgroundColor = color;
             })
         })
     }
@@ -57,28 +57,29 @@ function getColor(color) {
 function changeColor(e) {
     switch (e.target.id) {
         case "brown": {
+            manualCounter = 0;
             brushColor = "#000000";
             getColor(brushColor);
             break;
         }
 
         case "erase": {
-            brushColor = "#ffffff";
+            manualCounter = 0;
+            brushColor = "#ffffff"; 
+            getColor(brushColor);
+            break;
+        }
+
+        case "color": {
+            manualCounter = 1;
+            brushColor = e.target.value;
             getColor(brushColor);
             break;
         }
 
     }
 
-    brushColor = e.target.textContent;
-    getColor(brushColor);
 }
-
-document.querySelector("#brown").addEventListener("click", changeColor)
-
-document.querySelector("#erase").addEventListener("click", changeColor)
-
-document.querySelector("#reset").addEventListener("click", reset)
 
 function reset() {  
     let boxes = document.querySelectorAll(".boxes");
@@ -87,21 +88,16 @@ function reset() {
     })
 }
 
+document.querySelector("#brown").addEventListener("click", changeColor)
 
+document.querySelector("#erase").addEventListener("click", changeColor)
 
-let colorManual;
-let colorMan;
+document.querySelector("#reset").addEventListener("click", reset)
 
 window.addEventListener("load", startup, false);
 
 function startup() {
-    colorManual = document.querySelector("#color");
-    colorManual.addEventListener("input", updateFirst, false);
+    const colorManual = document.querySelector("#color");
+    colorManual.addEventListener("input", changeColor, false);
     colorManual.select();
-}
-
-function updateFirst(event) {
-    colorMan = event.target.value;
-    console.log(colorMan);
-    getColor("Manual");
 }
