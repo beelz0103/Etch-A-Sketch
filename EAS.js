@@ -1,5 +1,5 @@
 const canvas = document.querySelector('#canvas');
-let color = "Black";
+let brushColor = "#000000";
 createCanvas(16); 
 
 function createCanvas(gridSize) {
@@ -12,7 +12,7 @@ function createCanvas(gridSize) {
         canvas.appendChild(div);
     }
 
-    getColor(color);
+    getColor(brushColor);
 }
 
 function changeGrid() { 
@@ -24,44 +24,84 @@ function changeGrid() {
 
 function getColor(color) {
 
-    if (color == "Black") {
-
+    if (color == "#000000") {
         let boxes = document.querySelectorAll(".boxes");
         boxes.forEach((box)=>{
             box.addEventListener("mouseover", ()=>{
-                box.style.backgroundColor = 'rgba(0,0,0)';
+                box.style.backgroundColor = color;
             })
         })
     }
 
-    else if (color == "Erase") {
+    else if (color == "#ffffff") {
         let boxes = document.querySelectorAll(".boxes");
         boxes.forEach((box)=>{
             box.addEventListener("mouseover", ()=>{
-                box.style.backgroundColor = 'rgba(255,255,255)';
+                box.style.backgroundColor = color;
             })
         })
     }
 
-    else if (color == "Reset") {
-        
+    else if (color == "Manual") {
         let boxes = document.querySelectorAll(".boxes");
         boxes.forEach((box)=>{
-            box.style.backgroundColor = 'rgba(255,255,255)';            
+            box.addEventListener("mouseover", ()=>{
+                box.style.backgroundColor = `${colorMan}`;
+            })
         })
     }
+
 
 }
 
 function changeColor(e) {
-    color = e.target.textContent;
-    getColor(color);
+    switch (e.target.id) {
+        case "brown": {
+            brushColor = "#000000";
+            getColor(brushColor);
+            break;
+        }
+
+        case "erase": {
+            brushColor = "#ffffff";
+            getColor(brushColor);
+            break;
+        }
+
+    }
+
+    brushColor = e.target.textContent;
+    getColor(brushColor);
 }
 
 document.querySelector("#brown").addEventListener("click", changeColor)
 
 document.querySelector("#erase").addEventListener("click", changeColor)
 
-document.querySelector("#reset").addEventListener("click", changeColor)
+document.querySelector("#reset").addEventListener("click", reset)
+
+function reset() {  
+    let boxes = document.querySelectorAll(".boxes");
+    boxes.forEach((box)=>{
+        box.style.backgroundColor = 'rgba(255,255,255)';            
+    })
+}
 
 
+
+let colorManual;
+let colorMan;
+
+window.addEventListener("load", startup, false);
+
+function startup() {
+    colorManual = document.querySelector("#color");
+    colorManual.addEventListener("input", updateFirst, false);
+    colorManual.select();
+}
+
+function updateFirst(event) {
+    colorMan = event.target.value;
+    console.log(colorMan);
+    getColor("Manual");
+}
