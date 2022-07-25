@@ -99,5 +99,4 @@ window.addEventListener("load", startup, false);
 function startup() {
     const colorManual = document.querySelector("#color");
     colorManual.addEventListener("input", changeColor, false);
-    colorManual.select();
 }
