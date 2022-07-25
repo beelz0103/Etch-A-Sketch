@@ -1,9 +1,14 @@
+* {
+    font-family: 'Reenie Beanie', cursive;
+}
+
 body {
-    background-color: lightgray;
+    background-color: #e1d2d2;
 }
 
 #header {
-    font-size: 50px;
+    color:crimson;
+    font-size: 75px;
     font-weight: bold;
     text-align: center;
 }
@@ -12,7 +17,6 @@ body {
     height: 500px;
     width: 500px;
     background-color: white;
-    border: 2px solid black;    
     display: flex;
     flex-wrap: wrap;
     flex-shrink: 1;
@@ -45,4 +49,20 @@ body {
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    color: black;
+}
+
+.slider, button {
+    width: 100%;
+    height: 40px;
+    font-size: 30px;
+}
+
+#color {
+    height: 50px;
+    width: 50px;
+}
+
+#sliderdisplay {
+    font-size: 40px;
 }
